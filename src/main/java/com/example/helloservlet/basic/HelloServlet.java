@@ -17,7 +17,7 @@ public class HelloServlet extends HttpServlet {
         System.out.println("request = " + request);
         System.out.println("response = " + response);
 
-        // url에 쿼리 파라미터 넣으  면 터미널®에 찍히는 코드
+        // url에 쿼리 파라미터 넣으면 터미널에 찍히는 코드
         String username = request.getParameter("username");
         System.out.println("username = " + username);
 
