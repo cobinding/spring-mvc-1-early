@@ -2,6 +2,7 @@ package com.example.helloservlet.web.frontcontroller.v3;
 
 
 import com.example.helloservlet.web.frontcontroller.ModelView;
+import com.example.helloservlet.web.frontcontroller.MyView;
 import com.example.helloservlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
 import com.example.helloservlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import com.example.helloservlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
@@ -13,7 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JViewport;
 
 @WebServlet(name = "frontControllerServletV3", urlPatterns = "/front-controller/v3/*")
 public class FrontControllerServletV3 extends HttpServlet {
@@ -30,7 +30,6 @@ public class FrontControllerServletV3 extends HttpServlet {
         HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
         ControllerV3 controller = controllerMap.get(requestURI);
-
         if(controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
@@ -38,9 +37,15 @@ public class FrontControllerServletV3 extends HttpServlet {
 
         // 요청값에서 parameter값 다 빼오기
         Map<String, String> paramMap = createParamMap(request);
-
         ModelView mv = controller.process(paramMap);
-        view.render(request, response);
+
+        String viewName = mv.getViewName(); // view의 논리이름 new-form
+        MyView view = viewResolver(viewName);
+        view.render(mv.getModel(), request, response);
+    }
+
+    private static MyView viewResolver(String viewName) {
+        return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 
     private static Map<String, String> createParamMap(HttpServletRequest request) {

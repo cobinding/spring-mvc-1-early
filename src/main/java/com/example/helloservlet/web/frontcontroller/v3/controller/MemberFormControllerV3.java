@@ -8,6 +8,7 @@ public class MemberFormControllerV3 implements ControllerV3 {
 
     @Override
     public ModelView process(Map<String, String> paramMap) {
+        // 전체 path "WEB-IMF/../.jsp가 아닌 논리 이름만
         return new ModelView("new-form");
     }
 }

@@ -3,9 +3,11 @@ package com.example.helloservlet.web.frontcontroller;
 import java.util.HashMap;
 import java.util.Map;
 
+
+// Model과 View를 같이
 public class ModelView {
 
-    private String viewName;
+    private String viewName; // view의 논리적 이름
     private Map<String, Object> model = new HashMap<>();
 
     public ModelView(String viewName) {
@@ -24,7 +26,7 @@ public class ModelView {
         return model;
     }
 
-    public void setMode(Map<String, Object> model) {
+    public void setModel(Map<String, Object> model) {
         this.model = model;
     }
 }
